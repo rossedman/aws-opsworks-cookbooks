@@ -1,0 +1,32 @@
+#!/bin/bash
+
+AWS="/usr/local/bin/aws"
+
+# get stack variables
+STACK_NAME=$(git config --get aws-opsworks.stack-name)
+STACK_ID=$($AWS opsworks describe-stacks --region us-east-1 | jq ".[\"Stacks\"][] | select(.Name==\"$STACK_NAME\")" | jq '.StackId' -r)
+COOKBOOK_BUCKET=$(git config --get aws-opsworks.cookbook-bucket)
+
+echo "===> Package and upload cookbooks"
+berks package cookbooks.tar.gz
+$AWS s3 cp cookbooks.tar.gz $COOKBOOK_BUCKET
+
+echo "===> Issue a cookbook update to the nodes"
+DEPLOYMENT=$($AWS opsworks create-deployment --region us-east-1 --stack-id $STACK_ID --command "{\"Name\":\"update_custom_cookbooks\"}")
+DEPLOY_ID=$(echo $DEPLOYMENT | jq '.DeploymentId' -r)
+
+echo "===> Waiting for update_custom_cookbooks to finish: $DEPLOY_ID"
+$AWS opsworks wait deployment-successful \
+  --region us-east-1 \
+  --deployment-id $DEPLOY_ID
+
+echo "===> Configure servers"
+CONFIGURE=$($AWS opsworks create-deployment --region us-east-1 --stack-id $STACK_ID --command "{\"Name\":\"configure\"}")
+CONFIGURE_ID=$(echo $CONFIGURE | jq '.DeploymentId' -r)
+
+echo "===> Waiting for configure to finish: $CONFIGURE_ID"
+$AWS opsworks wait deployment-successful \
+  --region us-east-1 \
+  --deployment-id $CONFIGURE_ID
+
+echo "===> Cookbooks updated and servers configured"

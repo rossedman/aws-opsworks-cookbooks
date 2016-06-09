@@ -1,3 +1,3 @@
 source "https://supermarket.chef.io"
 
-cookbook "php-app", path: "./php"
+cookbook "php-app", path: "./php-app"

@@ -3,12 +3,16 @@
 ## Build & Deploy
 
 ```sh
-# generate a custom cookbook
+# create bucket to store cookbooks in
+aws s3 mb s3://<bucketname>
+
+# generate a custom cookbook and make your changes
 chef generate cookbook php
 
-# create archive of cookbooks
-berks package cookbooks.tar.gz
+# set git config settings
+git config aws-opsworks.cookbook-bucket s3://<bucketname>/cookbooks/cookbooks.tar.gz
+git config aws-opsworks.stack-name <stackname>
 
-# upload to S3
-aws s3 cp cookbooks.tar.gz s3://testapp.storage/cookbooks/cookbooks.tar.gz
+# berks install, upload and distribute cookbook changes
+./upload
 ```

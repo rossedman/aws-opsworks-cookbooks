@@ -1,6 +1,39 @@
 DEPENDENCIES
+  elastic
+    path: elastic
   php-app
     path: php-app
 
 GRAPH
+  apt (4.0.0)
+    compat_resource (>= 0.0.0)
+  ark (1.1.0)
+    build-essential (>= 0.0.0)
+    seven_zip (>= 0.0.0)
+    windows (>= 0.0.0)
+  build-essential (6.0.0)
+    compat_resource (>= 12.10)
+    mingw (>= 1.1)
+    seven_zip (>= 0.0.0)
+  chef-sugar (3.3.0)
+  chef_handler (1.4.0)
+  compat_resource (12.10.6)
+  elastic (0.1.0)
+    elasticsearch (>= 0.0.0)
+    java (>= 0.0.0)
+  elasticsearch (2.3.1)
+    apt (>= 0.0.0)
+    ark (>= 0.0.0)
+    chef-sugar (>= 0.0.0)
+    yum (>= 0.0.0)
+  java (1.39.0)
+    apt (>= 0.0.0)
+  mingw (1.2.0)
+    compat_resource (>= 0.0.0)
+    seven_zip (>= 0.0.0)
   php-app (0.1.0)
+  seven_zip (2.0.1)
+    windows (>= 1.2.2)
+  windows (1.43.0)
+    chef_handler (>= 0.0.0)
+  yum (3.11.0)

@@ -1,0 +1,10 @@
+[general]
+state_file = /var/awslogs/state/agent-state
+
+<% @logfiles.each do |logfile| %>
+[<%= @stack_name %>]
+datetime_format = [%Y-%m-%d %H:%M:%S]
+log_group_name = <%= @stack_name.gsub(' ','_') %>
+file = <%= logfile %>
+log_stream_name = <%= @hostname %>
+<% end %>

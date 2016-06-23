@@ -1,16 +1,12 @@
 #
 # Cookbook Name:: base
-# Recipe:: default
+# Recipe:: firewall
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
-# harden os
-include_recipe 'os-hardening::default'
+node.default['firewall']['ipv6_enabled'] = false
 
-# create firewall
-firewall 'default' do
-  action    :install
-end
+include_recipe 'firewall::default'
 
 firewall_rule 'ssh' do
   protocol :tcp
@@ -21,7 +17,7 @@ end
 
 firewall_rule 'http' do
   protocol  :tcp
-  port      [80,443]
+  port      [80, 443]
   command   :allow
   source    '10.0.128.0/16'
 end

@@ -1,4 +1,6 @@
 DEPENDENCIES
+  base
+    path: base
   elastic
     path: elastic
   php-app
@@ -11,6 +13,9 @@ GRAPH
     build-essential (>= 0.0.0)
     seven_zip (>= 0.0.0)
     windows (>= 0.0.0)
+  base (0.1.0)
+    firewall (~> 2.5.2)
+    os-hardening (~> 1.4.1)
   build-essential (6.0.0)
     compat_resource (>= 12.10)
     mingw (>= 1.1)
@@ -26,14 +31,23 @@ GRAPH
     ark (>= 0.0.0)
     chef-sugar (>= 0.0.0)
     yum (>= 0.0.0)
+  firewall (2.5.2)
+    chef-sugar (>= 0.0.0)
   java (1.39.0)
     apt (>= 0.0.0)
   mingw (1.2.0)
     compat_resource (>= 0.0.0)
     seven_zip (>= 0.0.0)
+  ohai (3.0.1)
+  os-hardening (1.4.1)
+    apt (>= 0.0.0)
+    sysctl (>= 0.3.0)
+    yum (>= 0.0.0)
   php-app (0.1.0)
   seven_zip (2.0.1)
     windows (>= 1.2.2)
+  sysctl (0.7.5)
+    ohai (~> 3.0)
   windows (1.43.0)
     chef_handler (>= 0.0.0)
   yum (3.11.0)
